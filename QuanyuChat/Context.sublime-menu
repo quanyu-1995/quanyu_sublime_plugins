@@ -1,0 +1,10 @@
+[
+    {
+        "command": "quanyu_chat",
+        "caption": "qyChat"
+    },
+    {
+        "command": "quanyu_chat_stream",
+        "caption": "qyChatStream"
+    }
+]

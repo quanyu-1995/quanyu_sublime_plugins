@@ -1,0 +1,6 @@
+{
+    "api_key": "Bearer <你的DeepSeek API Key>",
+    "model": "deepseek-chat",
+    // "conn_timeout": 5.0,
+    // "req_timeout": 60.0
+}

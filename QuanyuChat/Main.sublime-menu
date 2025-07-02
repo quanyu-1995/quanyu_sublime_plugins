@@ -1,0 +1,32 @@
+// Main.sublime-menu
+[
+    {
+        "id": "preferences",
+        "caption": "Preferences",
+        "children": [
+            {
+                "id": "package-settings",
+                "caption": "Package Settings",
+                "children": [
+                    {
+                        "caption": "Quanyu Chat",
+                        "children": [
+                            {
+                                "caption": "Settings",
+                                "command": "edit_settings",
+                                "args": {
+                                    "base_file": "${packages}/QuanyuChat/QuanyuChat.sublime-settings"
+                                }
+                            },
+                            {"caption": "-"},
+                            {
+                                "caption": "Reload Settings",
+                                "command": "quanyu_chat_reload_settings"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
