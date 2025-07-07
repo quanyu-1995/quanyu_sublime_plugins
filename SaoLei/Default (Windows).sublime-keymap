@@ -1,0 +1,9 @@
+[
+    {
+        "keys":
+        [
+            "f1"
+        ],
+        "command": "open_lei"
+    }
+]

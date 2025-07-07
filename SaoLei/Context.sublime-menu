@@ -1,0 +1,10 @@
+[
+    {
+        "command": "sao_lei",
+        "caption": "重新开始"
+    },
+    {
+        "command": "open_lei",
+        "caption": "打开"
+    }
+]
