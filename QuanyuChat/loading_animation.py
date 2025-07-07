@@ -3,8 +3,11 @@ import sublime
 import sublime_plugin
 
 class LoadingAnimation:
-    def __init__(self, view, source_view):
-        self.view = view
+    def __init__(self, source_view):
+        self.view = source_view.window().new_file()
+        self.view.set_name("⌛ DeepSeek AI 正在思考...")
+        self.view.set_scratch(True)  # 设为临时文件，关闭时不提示保存
+        
         self.source_view = source_view
         self.message = "正在处理您的请求，请稍候... \n\n(此窗口会在完成后自动关闭)"
         self.symbols = ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"]
