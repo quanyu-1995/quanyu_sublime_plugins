@@ -1,6 +1,7 @@
 import sublime
 import sublime_plugin
 import threading
+import json
 
 from .loading_animation import LoadingAnimation
 from .get_connection import GetConnection

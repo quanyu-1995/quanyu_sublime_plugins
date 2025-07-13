@@ -3,6 +3,7 @@ import sublime_plugin
 import threading
 import time
 import codecs  # 添加codecs模块用于增量解码
+import json
 
 from .loading_animation import LoadingAnimation
 from .get_connection import GetConnection
