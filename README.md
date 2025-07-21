@@ -28,9 +28,9 @@ Sublime Text插件合集清单
 	```json
 	{
 	    "api_key": "Bearer <你的DeepSeek API Key>", // API key
-	    "model": "deepseek-reasoner", 				// 模型选择，deepseek-chat：deepseek-V3模型，deepseek-reasoner：deepseek-R1模型
-	    // "conn_timeout": 5.0, 					// 连接超时时间，默认5s
-	    // "req_timeout": 60.0						// 响应超时时间，默认60s
+	    "model": "deepseek-reasoner", 		// 模型选择，deepseek-chat：deepseek-V3模型，deepseek-reasoner：deepseek-R1模型
+	    // "conn_timeout": 5.0, 			// 连接超时时间，默认5s
+	    // "req_timeout": 60.0			// 响应超时时间，默认60s
 	}
 	```
 - QuanyuHTTP
@@ -41,16 +41,16 @@ Sublime Text插件合集清单
 	- HTTP调用配置说明：
 	```json
 	{
-	    "host": "", 		//HTTP调用host，如域名，如ip:post 
-	    "endpoint": "",		//请求后缀
+	    "host": "", 	//HTTP调用host，如域名，如ip:post 
+	    "endpoint": "",	//请求后缀
 	    "type": "GET/POST", //请求类型，支持GET、POST请求
-	    "headers": {		//请求头
+	    "headers": {	//请求头
 
 	    },
-	    "body": {			//请求体，POST请求参数
+	    "body": {		//请求体，POST请求参数
 
 	    },
-	    "params": {			//GET请求参数
+	    "params": {		//GET请求参数
 
 	    }
 	}
