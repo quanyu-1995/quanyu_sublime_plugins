@@ -20,6 +20,8 @@ class QuanyuChatStream(sublime_plugin.TextCommand):
     decoder = None  
     # 正在思考
     is_thinking = False
+    # 记录<thinking>标签的起始位置
+    thinking_start_pos = None
 
     def run(self, edit):
         self.start_flag = True
@@ -85,19 +87,25 @@ class QuanyuChatStream(sublime_plugin.TextCommand):
 
                                 content = delta.get("reasoning_content", "")
                                 if content and not self.is_thinking:
-                                    self.append_stream_chunk("<thinking>\n")
+                                    self.append_stream_chunk("<thinking>\n", True)
                                     self.is_thinking = True
                                 if not content:
                                     content = delta.get("content", "")
                                     if content and self.is_thinking:
-                                        self.append_stream_chunk("\n<\\thinking>\n\n")
-                                        self.is_thinking = False;
+                                        self.append_stream_chunk("\n<\\thinking>\n\n", False)
+                                        # 计算折叠区域
+                                        end_pos = self.view.size()
+                                        fold_region = sublime.Region(self.thinking_start_pos, end_pos)
+                                        # 在主线程执行折叠操作
+                                        sublime.set_timeout(lambda: self.fold_thinking_region(fold_region), 0)
 
+                                        self.is_thinking = False;
+                                        self.thinking_start_pos = None  # 重置起始位置
                                 if content:
                                     # 关闭Loading
                                     self.loading_animation.stop()
                                     sublime.status_message("⌛ 正在输出......")
-                                    self.append_stream_chunk(content)
+                                    self.append_stream_chunk(content, False)
 
                             usage = json_data.get("usage", {})
                             if usage:
@@ -110,7 +118,7 @@ class QuanyuChatStream(sublime_plugin.TextCommand):
         except Exception as e:
             # 关闭Loading
             self.loading_animation.stop()
-            self.append_stream_chunk("\n\n请求失败: {}".format(str(e)))
+            self.append_stream_chunk("\n\n请求失败: {}".format(str(e)), False)
         finally:
             try:
                 if conn:
@@ -121,19 +129,23 @@ class QuanyuChatStream(sublime_plugin.TextCommand):
 
     
     """追加流式内容块"""
-    def append_stream_chunk(self, chunk):
+    def append_stream_chunk(self, chunk, is_start):
         # 插入assistant标记
         if self.start_flag:
             self.view.run_command("insert_text_at_end", {
                 "text": '\n\nassistant:\n'
             })
             self.start_flag = False
-        # 在主线程插入文本
+
         sublime.set_timeout(lambda: 
             self.view.run_command("insert_text_at_end", {
                 "text": chunk
             }), 0)
         
+        # 在主线程插入文本
+        if is_start:
+            self.thinking_start_pos = self.view.size() + 11
+
         # 滚动视图
         sublime.set_timeout(lambda: self.view.show(self.view.size()), 0)
 
@@ -146,3 +158,17 @@ class QuanyuChatStream(sublime_plugin.TextCommand):
         
         # 更新状态
         sublime.status_message("✅ DeepSeek AI 已完成响应")
+
+    def fold_thinking_region(self, region):
+        if region.a >= region.b:
+            return
+        self.view.unfold(region)  # 先展开可能存在的嵌套折叠
+        self.view.fold(region)    # 执行折叠
+        self.view.show(region)    # 确保区域可见
+        # 设置区域为可折叠块（关键步骤）
+        self.view.add_regions(
+            "folded_content",
+            [region],
+            scope="region.bluish",
+            flags=sublime.DRAW_NO_FILL
+        )
