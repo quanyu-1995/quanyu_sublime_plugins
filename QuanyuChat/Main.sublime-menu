@@ -9,19 +9,24 @@
                 "caption": "Package Settings",
                 "children": [
                     {
-                        "caption": "Quanyu Chat",
+                        "caption": "Quanyu Plugins",
                         "children": [
                             {
-                                "caption": "Settings",
-                                "command": "edit_settings",
-                                "args": {
-                                    "base_file": "${packages}/QuanyuChat/QuanyuChat.sublime-settings"
-                                }
-                            },
-                            {"caption": "-"},
-                            {
-                                "caption": "Reload Settings",
-                                "command": "quanyu_chat_reload_settings"
+                                "caption": "Quanyu Chat",
+                                "children": [
+                                    {
+                                        "caption": "Settings",
+                                        "command": "edit_settings",
+                                        "args": {
+                                            "base_file": "${packages}/QuanyuChat/QuanyuChat.sublime-settings"
+                                        }
+                                    },
+                                    {"caption": "-"},
+                                    {
+                                        "caption": "Reload Settings",
+                                        "command": "quanyu_chat_reload_settings"
+                                    }
+                                ]
                             }
                         ]
                     }

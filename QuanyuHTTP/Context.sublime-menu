@@ -4,15 +4,15 @@
         "caption": "Quanyu Plugins",
         "children": [
             {
-                "caption": "Quanyu Chat",
+                "caption": "Quanyu HTTP",
                 "children": [
                     {
-                        "command": "quanyu_chat",
-                        "caption": "qyChat"
+                        "command": "quanyu_http_init",
+                        "caption": "qyHTTPInit"
                     },
                     {
-                        "command": "quanyu_chat_stream",
-                        "caption": "qyChatStream"
+                        "command": "quanyu_http",
+                        "caption": "qyHTTP"
                     }
                 ]
             }
